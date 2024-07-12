@@ -1,0 +1,47 @@
+# Clion files
+.idea/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Android library packages
+*.jar
+
+# Ignore directories
+/build/
+/bin/
+/.metadata/
+
+#Cmake build folders
+/cmake-build-*
+
+# iOS folder config
+*.DS_Store*
+
+# Testing data
+/build*
+
+# Downloaded Style Guide
+/styleguide/
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
