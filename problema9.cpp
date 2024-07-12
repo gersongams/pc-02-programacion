@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
-#include <cmath>
 
 using namespace std;
 
@@ -64,7 +63,6 @@ vector<int> encontrarProgresionGeometrica(const vector<int>& X, unordered_set<in
         }
     }
 
-    // Check if no geometric progression found, add any single element not used
     if (mejor_progresion.empty()) {
         for (int i = 0; i < n; i++) {
             if (usados.find(X[i]) == usados.end()) {
@@ -84,7 +82,26 @@ vector<int> encontrarProgresionGeometrica(const vector<int>& X, unordered_set<in
 void imprimirProgresiones(const vector<int>& X, int n) {
     unordered_set<int> usados;
     vector<int> progresion_aritmetica = encontrarProgresionAritmetica(X, usados);
-    vector<int> progresion_geometrica = encontrarProgresionGeometrica(X, usados);
+
+    unordered_set<int> usados_temp = usados;
+    vector<int> progresion_geometrica = encontrarProgresionGeometrica(X, usados_temp);
+
+    int longitud_combinada = progresion_aritmetica.size() + progresion_geometrica.size();
+
+    for (int i = 0; i < n; i++) {
+        if (usados.find(X[i]) == usados.end()) {
+            unordered_set<int> usados_temp2 = usados;
+            vector<int> progresion_temp = encontrarProgresionAritmetica(X, usados_temp2);
+            vector<int> progresion_geometrica_temp = encontrarProgresionGeometrica(X, usados_temp2);
+            int longitud_combinada_temp = progresion_temp.size() + progresion_geometrica_temp.size();
+
+            if (longitud_combinada_temp > longitud_combinada) {
+                progresion_aritmetica = progresion_temp;
+                progresion_geometrica = progresion_geometrica_temp;
+                longitud_combinada = longitud_combinada_temp;
+            }
+        }
+    }
 
     cout << "A: ";
     for (int num : progresion_aritmetica) {
