@@ -20,11 +20,15 @@ string eliminarLetrasRepetidas(string texto) {
 
 int main() {
     string entrada;
+    cout << "input: ";
     getline(cin, entrada);
 
-    string salida = eliminarLetrasRepetidas(entrada);
-
-    cout << salida << endl;
-
+    // Valida la longitud del texto de entrada
+    if (entrada.length() >= 1 && entrada.length() <= 2e5) {
+        string salida = eliminarLetrasRepetidas(entrada);
+        cout << "salida: " << salida << endl;
+    } else {
+        std::cout << "Longitud de entrada no válida. Por favor, ingresa un texto con una longitud entre 1 a 2 x 10^5." << std::endl;
+    }
     return 0;
 }

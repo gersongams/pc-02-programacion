@@ -9,6 +9,18 @@ struct Espia {
     Espia(string _nombre) : nombre(_nombre), siguiente(nullptr) {}
 };
 
+bool validarEntrada(const string& str, int n) {
+    if (str.empty()) return false;
+
+    for (char c : str) {
+        if (!isdigit(c)) return false;
+    }
+
+    int numero = stoi(str);
+
+    return numero > 1 && numero < n;
+}
+
 int numeroEspias(Espia* espiaInicial) {
     if (!espiaInicial) return 0;
     int contador = 1;
@@ -64,11 +76,21 @@ int main() {
     pPaulo->siguiente = pSamir;
     pSamir->siguiente = pDiego;
 
-    int K = 3;
+    string k;
+    int n = numeroEspias(pDiego);
 
-    cout << "Número de espías: " << numeroEspias(pDiego) << endl;
+    cout << "Número de espías: " << n << endl;
 
-    Espia* sobreviviente = ultimoSobreviviente(pDiego, K);
+    cout << "Elegir un número (k): ";
+    std::cin >> k;
+
+    if (!validarEntrada(k, n)) {
+        cout << "Numero no valido: (k) debe ser un numero mayor a 1 y menor a " << n << endl;
+        return 1;
+    }
+
+    cout << " " << endl;
+    Espia* sobreviviente = ultimoSobreviviente(pDiego, stoi(k));
     cout << "El último espía en sobrevivir es: " << sobreviviente->nombre << endl;
 
     delete sobreviviente;
