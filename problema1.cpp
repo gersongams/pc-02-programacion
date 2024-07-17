@@ -3,6 +3,7 @@
 #include <sstream>
 #include <set>
 #include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
@@ -15,26 +16,35 @@ int analizarOracion(const string& oracion) {
     while (iss >> palabra) {
         if (all_of(palabra.begin(), palabra.end(), ::isdigit)) {
             suma += stoi(palabra);
-        } else {
-            set<char> vocales;
-            for (char c : palabra) {
-                char lower = tolower(c);
-                if (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u') {
-                    vocales.insert(lower);
-                }
-            }
-            if (vocales.size() == 3) {
-                contadorPalabras++;
-            }
         }
+    }
+
+    if(suma == 0){
+        cout << "No se encontró ningún número en la oración. " << endl;
+        return 0;
     }
 
     int r = suma % 5;
     int n = r + 1;
 
-    cout << "Hay " << contadorPalabras << " palabras con 3 vocales diferentes" << endl;
-    cout << "Nota: s = " << suma << "; r = " << r << "; n = " << n << ";" << endl;
+    istringstream iss2(oracion);
+    while (iss2 >> palabra) {        
+        int contadorVocales = 0;
+        set<char> vocales;
+        for (char c : palabra) {
+            char lower = tolower(c);
+            if (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u') {
+                vocales.insert(lower);
+            }
+        }
+        if (vocales.size() == n) {
+            //cout << "Palabra: " << palabra << endl;
+            contadorPalabras++;
+        }
+    }
 
+    cout << "Hay " << contadorPalabras << " palabras con " << n << " vocales diferentes" << endl;
+    cout << "Nota: s = " << suma << "; r = " << r << "; n = " << n << ";" << endl;
     return contadorPalabras;
 }
 
